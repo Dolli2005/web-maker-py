@@ -23,10 +23,11 @@ export const SkinTypeSelector = ({ selectedType, onSelect }: SkinTypeSelectorPro
           <Button
             key={type}
             variant={selectedType === type ? "default" : "outline"}
-            className="h-24 flex flex-col gap-2 text-lg transition-all duration-300 hover:scale-105"
+            className="h-24 flex flex-col gap-2 text-lg transition-all duration-300 hover:scale-105 hover:shadow-glow animate-[fadeIn_0.4s_ease-out] hover:-translate-y-1"
+            style={{ animationDelay: `${skinTypes.findIndex(st => st.type === type) * 0.1}s` }}
             onClick={() => onSelect(type)}
           >
-            <span className="text-3xl">{emoji}</span>
+            <span className="text-3xl transition-transform duration-300 group-hover:scale-110">{emoji}</span>
             <span className="capitalize">{description}</span>
           </Button>
         ))}

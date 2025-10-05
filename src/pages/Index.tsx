@@ -40,45 +40,48 @@ const Index = () => {
     <div className="min-h-screen py-8 px-4">
       <div className="max-w-6xl mx-auto space-y-8">
         {/* Header */}
-        <div className="text-center space-y-3 animate-fade-in">
-          <h1 className="text-5xl md:text-6xl font-bold gradient-primary bg-clip-text text-transparent">
+        <div className="text-center space-y-3 animate-[fadeIn_0.6s_ease-out]">
+          <h1 className="text-5xl md:text-6xl font-bold gradient-primary bg-clip-text text-transparent animate-[scaleIn_0.8s_ease-out]">
             🌸 Skin Care Assistant 🌸
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto animate-[fadeIn_0.8s_ease-out_0.3s] opacity-0 [animation-fill-mode:forwards]">
             Get personalized skincare recommendations based on your skin type and concerns
           </p>
         </div>
 
         {/* Progress Indicator */}
         {step !== "results" && (
-          <div className="flex justify-center gap-2">
-            <div className={`h-2 w-24 rounded-full transition-all ${step === "skinType" ? "bg-primary" : "bg-primary/30"}`} />
-            <div className={`h-2 w-24 rounded-full transition-all ${step === "concern" ? "bg-primary" : "bg-primary/30"}`} />
+          <div className="flex justify-center gap-2 animate-[fadeIn_0.5s_ease-out]">
+            <div className={`h-2 w-24 rounded-full transition-all duration-500 ${step === "skinType" ? "bg-primary scale-105" : "bg-primary/30"}`} />
+            <div className={`h-2 w-24 rounded-full transition-all duration-500 ${step === "concern" ? "bg-primary scale-105" : "bg-primary/30"}`} />
           </div>
         )}
 
         {/* Content */}
-        <div className="glass-card rounded-3xl p-6 md:p-10 shadow-glow animate-fade-in">
+        <div className="glass-card rounded-3xl p-6 md:p-10 shadow-glow animate-[scaleIn_0.6s_ease-out] hover:shadow-[0_0_50px_hsl(var(--primary)/0.3)] transition-shadow duration-500">
           {step === "skinType" && (
-            <SkinTypeSelector
-              selectedType={selection.skinType}
-              onSelect={handleSkinTypeSelect}
-            />
+            <div className="animate-[slideInUp_0.5s_ease-out]">
+              <SkinTypeSelector
+                selectedType={selection.skinType}
+                onSelect={handleSkinTypeSelect}
+              />
+            </div>
           )}
 
           {step === "concern" && (
-            <div className="space-y-6">
+            <div className="space-y-6 animate-[slideInUp_0.5s_ease-out]">
               <ConcernSelector
                 selectedConcern={selection.concern}
                 onSelect={handleConcernSelect}
               />
-              <div className="flex justify-center">
+              <div className="flex justify-center animate-[fadeIn_0.5s_ease-out_0.3s] opacity-0 [animation-fill-mode:forwards]">
                 <Button
                   variant="outline"
                   onClick={() => {
                     setSelection({ ...selection, concern: null });
                     setStep("skinType");
                   }}
+                  className="transition-all duration-300 hover:scale-105"
                 >
                   Back to Skin Type
                 </Button>
@@ -87,12 +90,14 @@ const Index = () => {
           )}
 
           {step === "results" && routine && selection.skinType && selection.concern && (
-            <RoutineDisplay
-              routine={routine}
-              skinType={selection.skinType}
-              concern={selection.concern}
-              onReset={handleReset}
-            />
+            <div className="animate-[scaleIn_0.6s_ease-out]">
+              <RoutineDisplay
+                routine={routine}
+                skinType={selection.skinType}
+                concern={selection.concern}
+                onReset={handleReset}
+              />
+            </div>
           )}
         </div>
 
